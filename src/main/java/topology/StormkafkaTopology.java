@@ -17,6 +17,7 @@ import backtype.storm.generated.AuthorizationException;
 import backtype.storm.generated.InvalidTopologyException;
 import backtype.storm.spout.SchemeAsMultiScheme;
 import bolt.KafkaWordSplitter;
+import bolt.WordCounter;
 
 
 public class StormkafkaTopology {
@@ -25,7 +26,7 @@ public class StormkafkaTopology {
 
 		BrokerHosts hosts = new ZkHosts("172.28.20.103:2181,172.28.20.104:2181,172.28.20.105:2181");
 //		SpoutConfig spoutConfig = new SpoutConfig(hosts, "test12", "/brokers", UUID.randomUUID().toString());
-		SpoutConfig spoutConfig = new SpoutConfig(hosts, "test12", "/storm", UUID.randomUUID().toString());
+		SpoutConfig spoutConfig = new SpoutConfig(hosts, "test16", "/storm", UUID.randomUUID().toString());
 		spoutConfig.scheme  = new SchemeAsMultiScheme(new StringScheme());
 		spoutConfig.zkServers = Arrays.asList(new String[] {"172.28.20.103", "172.28.20.104", "172.28.20.105"});
 		spoutConfig.zkPort = 2181;
@@ -39,6 +40,7 @@ public class StormkafkaTopology {
 //		builder.setBolt("Output", new WordCounter()).shuffleGrouping("bolted");
 		Config conf = new Config();
 		conf.setDebug(false);
+		conf.put(Config.TOPOLOGY_DEBUG, false);
 		
 //		LocalCluster cluster = new LocalCluster();
 //		cluster.submitTopology("testTopology", conf, builder.createTopology());
